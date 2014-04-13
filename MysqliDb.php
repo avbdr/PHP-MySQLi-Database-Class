@@ -620,7 +620,7 @@ class MysqliDb
             call_user_func_array(array($stmt, 'bind_param'), $this->refValues($this->_bindParams));
         }
 
-        $this->_lastQuery = $this->replacePlaceHolders($this->_query, $this->_bindParams);
+        $this->_lastQuery = $this->_query;
         return $stmt;
     }
 
@@ -703,21 +703,6 @@ class MysqliDb
             return $refs;
         }
         return $arr;
-    }
-
-    /**
-     * Function to replace ? with variables from bind variable
-     * @param string $str
-     * @param Array $vals
-     *
-     * @return string
-     */
-    protected function replacePlaceHolders ($str, $vals) {
-        $i = 1;
-        while ($pos = strpos ($str, "?"))
-            $str = substr ($str, 0, $pos) . $vals[$i++] . substr ($str, $pos + 1);
-
-        return $str;
     }
 
     /**
